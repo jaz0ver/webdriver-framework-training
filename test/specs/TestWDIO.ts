@@ -4,8 +4,6 @@ describe('My Login application', () => {
     it('should login with valid credentials', async () => {
         console.log('zen1: '+process.env.ENV)
         await browser.url('');
-        await browser.debug()
-
     })
 })
 

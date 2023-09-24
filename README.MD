@@ -41,3 +41,12 @@ E2E setup for wdio (https://webdriver.io/)
 
 12. Run a Typescript file for testing
     a. ts-node <file>
+
+Allure reporting
+https://webdriver.io/docs/allure-reporter
+13. Update wdio.conf.ts
+14. Install allure-reporting in your project
+15. Install alure in command line
+16. Run allure command 
+    a. allure generate [allure_output_dir]
+    b. allure open

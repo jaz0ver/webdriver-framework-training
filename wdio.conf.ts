@@ -1,15 +1,19 @@
+"use strict";
 import type { Options } from '@wdio/types'
+const allure = require('allure-commandline')
+const allureReporter = require('@wdio/allure-reporter').default
+let reportDir = "./reports/allure/";
 
-import envi_config from './main/resources/config/env/env.json';
+const environments = (require("./main/resources/config/env/env.json")).environment;
 
 let baseUrl: string;
-let env: string = process.env.ENV ? process.env.ENV : '';
-if (Object.keys(envi_config.environment).includes(env)) {
-    process.env.ENV_DETAILS = envi_config.environment[env]; 
-    baseUrl = envi_config.environment[env].baseUrl;
+const env: string = process.env.ENV ? process.env.ENV : '';
+if (Object.keys(environments).includes(env)) {
+    process.env.ENV_DETAILS = environments[env]; 
+    baseUrl = environments[env].baseUrl;
     process.env.BASEURL = baseUrl;
 } else {
-    console.log('Please set the environment in command line, options: dev | qa. (Windows: $Env:Env="prod"; npm run wdio) or (MAC: npm run wdio Env=qa)')
+    console.log('Please set the environment in command line, options: dev | qa. (Windows: $Env:Env="<env>"; npm run wdio) or (MAC: npm run wdio Env=<env>)')
     process.exit(1);
 }
 
@@ -45,12 +49,13 @@ export const config: Options.Testrunner = {
     // will be called from there.
     //
     specs: [
-        './test/specs/**/*.ts'
+        // './test/specs/**/*.ts'
+        './test/specs/test.e2e.ts'
+        // './test/specs/TestWDIO.ts'
     ],
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
-        './test/specs/test.e2e.ts'
     ],
     //
     // ============
@@ -74,11 +79,11 @@ export const config: Options.Testrunner = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [{
-        browserName: 'chrome',
-        timeouts: { implicit: 0, pageLoad: 300000, script: 30000 }
-    }],
-    
+    capabilities: [],
+    // capabilities: [{
+    //     browserName: "chrome",
+    //     timeouts: { implicit: 0, pageLoad: 300000, script: 30000 }
+    // }],
     // capabilities: [{
     //     browserName: 'chrome'
     // }, {
@@ -86,7 +91,6 @@ export const config: Options.Testrunner = {
     // }, {
     //     browserName: 'MicrosoftEdge'
     // }],
-
     //
     // ===================
     // Test Configurations
@@ -157,7 +161,11 @@ export const config: Options.Testrunner = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    reporters: ['spec', ['allure', {
+        outputDir: reportDir + 'allure-results',
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: false,
+    }]],
 
     //
     // Options to be passed to Jasmine.
@@ -168,7 +176,7 @@ export const config: Options.Testrunner = {
         // The Jasmine framework allows interception of each assertion in order to log the state of the application
         // or website depending on the result. For example, it is pretty handy to take a screenshot every time
         // an assertion fails.
-        expectationResultHandler: function(passed, assertion) {
+        expectationResultHandler: function(_passed, _assertion) {
             // do something
         }
     },
@@ -240,6 +248,19 @@ export const config: Options.Testrunner = {
      */
     // beforeSuite: function (suite) {
     // },
+    beforeSuite: function () {
+        // Function to delete allure-results in report directory
+        try {
+            const fs = require('fs');
+            let reportPath = reportDir + 'allure-results';
+            if (fs.existsSync(reportDir)) {
+                fs.rmSync(reportPath, {recursive: true})
+                console.log(`${reportDir} is deleted.`)
+            }
+        } catch (error) {
+            console.log(`Error on deleting ${reportDir}.`)
+        }
+    },
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
@@ -259,8 +280,8 @@ export const config: Options.Testrunner = {
     // },
     /**
      * Function to be executed after a test (in Mocha/Jasmine only)
-     * @param {object}  test             test object
-     * @param {object}  context          scope object the test was executed with
+     * @param {object}  _test             test object
+     * @param {object}  _context          scope object the test was executed with
      * @param {Error}   result.error     error object in case the test fails, otherwise `undefined`
      * @param {*}       result.result    return object of test function
      * @param {number}  result.duration  duration of test
@@ -269,8 +290,13 @@ export const config: Options.Testrunner = {
      */
     // afterTest: function(test, context, { error, result, duration, passed, retries }) {
     // },
-
-
+    afterTest: async function(_test, _context, {}) {
+        // if (!passed) {
+            // await browser.takeScreenshot();
+            // allureReporter.addAttachment('Screenshot', Buffer.from(await browser.takeScreenshot(), 'base64'), 'image/png');
+        // }
+        allureReporter.addAttachment('Screenshot', Buffer.from(await browser.takeScreenshot(), 'base64'), 'image/png');
+    },
     /**
      * Hook that gets executed after the suite has ended
      * @param {object} suite suite details
@@ -313,6 +339,26 @@ export const config: Options.Testrunner = {
      */
     // onComplete: function(exitCode, config, capabilities, results) {
     // },
+    onComplete: function() {
+        const reportError = new Error('Could not generate Allure report')
+        const generation = allure(['generate', reportDir + 'allure-results', '--clean', '-o', reportDir + 'allure-report'])
+        return new Promise<void>((resolve, reject) => {
+            const generationTimeout = setTimeout(
+                () => reject(reportError),
+                5000)
+
+            generation.on('exit', function(exitCode: number) {
+                clearTimeout(generationTimeout)
+
+                if (exitCode !== 0) {
+                    return reject(reportError)
+                }
+
+                console.log('Allure report successfully generated')
+                resolve()
+            })
+        })
+    }
     /**
     * Gets executed when a refresh happens.
     * @param {string} oldSessionId session ID of the old session
