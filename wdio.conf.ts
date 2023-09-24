@@ -2,7 +2,10 @@
 import type { Options } from '@wdio/types'
 const allure = require('allure-commandline')
 const allureReporter = require('@wdio/allure-reporter').default
-let reportDir = "./reports/allure/";
+import {getReportPathWithTime} from './main/utilities/CommonFunctions'
+
+let reportDir: string;
+let resultDir: string = './reports/allure/allure-results';
 
 const environments = (require("./main/resources/config/env/env.json")).environment;
 
@@ -162,7 +165,7 @@ export const config: Options.Testrunner = {
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
     reporters: ['spec', ['allure', {
-        outputDir: reportDir + 'allure-results',
+        outputDir: resultDir,
         disableWebdriverStepsReporting: true,
         disableWebdriverScreenshotsReporting: false,
     }]],
@@ -196,6 +199,32 @@ export const config: Options.Testrunner = {
      */
     // onPrepare: function (config, capabilities) {
     // },
+    onPrepare: function (config) {
+        // Set dynamic report path. However, outputDir of report is not using the new path
+        let fileName = config.specs?.toString() ? config.specs?.toString() : 'suite';
+        fileName = fileName.substring((fileName.lastIndexOf("/")+1), fileName.lastIndexOf(".ts"));
+        if (config.specs?.length) {
+            if (config.specs?.length == 1) {
+                reportDir = getReportPathWithTime(fileName);
+            } else {
+                reportDir = getReportPathWithTime("suite");
+            }   
+        } else {
+            reportDir = getReportPathWithTime("suite");
+        }
+        console.log(reportDir);
+        // Function to delete allure-results in report directory
+        try {
+            const fs = require('fs');
+            console.log(fs.existsSync(resultDir));
+            if (fs.existsSync(resultDir)) {
+                fs.rmSync(resultDir, {recursive: true})
+                console.log(`${resultDir} is deleted.`)
+            }
+        } catch (error) {
+            console.log(`Error on deleting ${reportDir}.`)
+        }
+    },
     /**
      * Gets executed before a worker process is spawned and can be used to initialise specific service
      * for that worker as well as modify runtime environments in an async fashion.
@@ -248,19 +277,6 @@ export const config: Options.Testrunner = {
      */
     // beforeSuite: function (suite) {
     // },
-    beforeSuite: function () {
-        // Function to delete allure-results in report directory
-        try {
-            const fs = require('fs');
-            let reportPath = reportDir + 'allure-results';
-            if (fs.existsSync(reportDir)) {
-                fs.rmSync(reportPath, {recursive: true})
-                console.log(`${reportDir} is deleted.`)
-            }
-        } catch (error) {
-            console.log(`Error on deleting ${reportDir}.`)
-        }
-    },
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
@@ -341,7 +357,7 @@ export const config: Options.Testrunner = {
     // },
     onComplete: function() {
         const reportError = new Error('Could not generate Allure report')
-        const generation = allure(['generate', reportDir + 'allure-results', '--clean', '-o', reportDir + 'allure-report'])
+        const generation = allure(['generate', resultDir, '-o', reportDir])
         return new Promise<void>((resolve, reject) => {
             const generationTimeout = setTimeout(
                 () => reject(reportError),

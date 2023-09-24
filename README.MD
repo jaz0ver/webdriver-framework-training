@@ -11,7 +11,7 @@ https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
 
 Actual WebDriverIO Installation start here (In project terminal of VSCode)
-https://qavalidation.com/2022/06/getting-started-with-webdriverio-with-typescript.html/
+    https://qavalidation.com/2022/06/getting-started-with-webdriverio-with-typescript.html/
 6. npm init
     a. This will create package.json (Similar with maven's POM)
 
@@ -43,10 +43,19 @@ E2E setup for wdio (https://webdriver.io/)
     a. ts-node <file>
 
 Allure reporting
-https://webdriver.io/docs/allure-reporter
+    https://webdriver.io/docs/allure-reporter
 13. Update wdio.conf.ts
 14. Install allure-reporting in your project
 15. Install alure in command line
 16. Run allure command 
     a. allure generate [allure_output_dir]
     b. allure open
+
+
+EXECUTION:
+1. Set desire test in specs of wdio.conf.ts
+2. Run the following in terminal
+    a. $env:env="qa"; npm run browser
+    b. "browser" is configured in tsconfig.json
+3. Follow the instruction in url if you have issues in opening the report 
+    https://www.webmo.net/link/help/AccessingLocalFiles.html
