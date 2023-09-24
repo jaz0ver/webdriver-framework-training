@@ -1,0 +1,22 @@
+{
+    "testcases": {
+        "tc1": {
+            "description": "Test case 1",
+            "account": {
+                "user": "qa",
+                "pass": "pass"
+            }
+        },
+        "tc2": {
+            "description": "Test case 1",
+            "account": {
+                "user": "dev",
+                "pass": "pass"
+            }
+        }
+    },
+    "generic_account": {
+        "user": "",
+        "pass": ""
+    }
+}
