@@ -1,7 +1,10 @@
 # https://webdriver.io/docs/githubactions
 name: CI
-on: [push]
-
+# on:[push, pull_request]
+on:
+  push:
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
