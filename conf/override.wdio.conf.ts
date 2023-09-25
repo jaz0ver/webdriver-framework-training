@@ -54,7 +54,6 @@ switch (browser) {
                 //     '--disable-gpu',
                 //     '--disable-dev-shm-usage'
                 // ],
-                debuggerAddress: 'localhost:9222'
             }
         }]
         break;
