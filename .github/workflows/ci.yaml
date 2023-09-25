@@ -1,6 +1,5 @@
 # https://webdriver.io/docs/githubactions
 name: CI
-
 on: [push]
   push:
     branches:
