@@ -4,12 +4,41 @@ const allure = require('allure-commandline')
 const allureReporter = require('@wdio/allure-reporter').default
 import {getReportPathWithTime} from '../main/utilities/CommonFunctions'
 
+let baseUrl: string;
 let reportDir: string;
 let resultDir: string = './reports/allure/allure-results';
 
-const environments = (require("../main/resources/config/env/env.json")).environment;
+// Check required variables are existing 
+let requiredVariables = [
+    // "browser",
+    "env"
+]
+requiredVariables.forEach(variable => {
+    let reqVar = false;
+    for (const envVar of process.argv) {
+        envVar.includes(`${variable}=`) ? reqVar = true : reqVar = false;
+        if (reqVar) {
+            break;
+        }
+    }
+    if (!reqVar) {
+        console.log(`${variable.toUpperCase()} was not declared. Please add in the command line, e.g. ${variable}=foo`);
+        process.exit(1);
+    }
+});
 
-let baseUrl: string;
+// Extract all declared variables
+(process.argv).forEach(variable => {
+    if (variable.includes("=")) {
+        let key, value;
+        key = variable.substring(0, variable.indexOf("="));
+        value = variable.substring(variable.indexOf("=")+1);
+        process.env[key] = value;
+        console.log(`process.env[${key}]: ${value}`);
+    }
+});
+
+const environments = (require("../main/resources/config/env/env.json")).environment;
 const env: string = process.env.ENV ? process.env.ENV : 'qa';
 if (Object.keys(environments).includes(env)) {
     process.env.ENV_DETAILS = environments[env]; 
