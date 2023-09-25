@@ -42,15 +42,16 @@ config.maxInstances = 1;
 // https://saucelabs.com/platform/platform-configurator
 config.capabilities = [{
     browserName: 'chrome',
+    // acceptInsecureCerts: true,
     'goog:chromeOptions': { 
-        debuggerAddress: 'localhost:9222',
         // https://developer.chrome.com/articles/new-headless/#new-headless-in-selenium-webdriver
         // https://stackoverflow.com/questions/69173469/meaning-of-selenium-chromeoptions
         args: [
             '--headless=new',
             '--disable-gpu',
             '--disable-dev-shm-usage'
-        ]
+        ],
+        debuggerAddress: 'localhost:9222'
     }
 }]
 
