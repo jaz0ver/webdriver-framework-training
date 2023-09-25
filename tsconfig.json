@@ -23,6 +23,6 @@
     "include": [
         "test",
         "main",
-        "./wdio.conf.ts"
+        "conf"
     ]
 }

@@ -2,15 +2,15 @@
 import type { Options } from '@wdio/types'
 const allure = require('allure-commandline')
 const allureReporter = require('@wdio/allure-reporter').default
-import {getReportPathWithTime} from './main/utilities/CommonFunctions'
+import {getReportPathWithTime} from '../main/utilities/CommonFunctions'
 
 let reportDir: string;
 let resultDir: string = './reports/allure/allure-results';
 
-const environments = (require("./main/resources/config/env/env.json")).environment;
+const environments = (require("../main/resources/config/env/env.json")).environment;
 
 let baseUrl: string;
-const env: string = process.env.ENV ? process.env.ENV : '';
+const env: string = process.env.ENV ? process.env.ENV : 'qa';
 if (Object.keys(environments).includes(env)) {
     process.env.ENV_DETAILS = environments[env]; 
     baseUrl = environments[env].baseUrl;
@@ -34,7 +34,6 @@ export const config: Options.Testrunner = {
             transpileOnly: true
         }
     },
-    
     //
     // ==================
     // Specify Test Files
@@ -52,9 +51,7 @@ export const config: Options.Testrunner = {
     // will be called from there.
     //
     specs: [
-        // './test/specs/**/*.ts'
-        './test/specs/test.e2e.ts'
-        // './test/specs/TestWDIO.ts'
+        '../test/specs/**/*.ts'
     ],
     // Patterns to exclude.
     exclude: [
@@ -82,11 +79,10 @@ export const config: Options.Testrunner = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [],
-    // capabilities: [{
-    //     browserName: "chrome",
-    //     timeouts: { implicit: 0, pageLoad: 300000, script: 30000 }
-    // }],
+    capabilities: [{
+        browserName: "chrome",
+        timeouts: { implicit: 0, pageLoad: 300000, script: 30000 }
+    }],
     // capabilities: [{
     //     browserName: 'chrome'
     // }, {
@@ -203,8 +199,9 @@ export const config: Options.Testrunner = {
         // Set dynamic report path. However, outputDir of report is not using the new path
         let fileName = config.specs?.toString() ? config.specs?.toString() : 'suite';
         fileName = fileName.substring((fileName.lastIndexOf("/")+1), fileName.lastIndexOf(".ts"));
+
         if (config.specs?.length) {
-            if (config.specs?.length == 1) {
+            if (config.specs?.length == 1 && !config.specs?.toString().includes("/*.ts")) {
                 reportDir = getReportPathWithTime(fileName);
             } else {
                 reportDir = getReportPathWithTime("suite");
@@ -212,11 +209,9 @@ export const config: Options.Testrunner = {
         } else {
             reportDir = getReportPathWithTime("suite");
         }
-        console.log(reportDir);
         // Function to delete allure-results in report directory
         try {
             const fs = require('fs');
-            console.log(fs.existsSync(resultDir));
             if (fs.existsSync(resultDir)) {
                 fs.rmSync(resultDir, {recursive: true})
                 console.log(`${resultDir} is deleted.`)

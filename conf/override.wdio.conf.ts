@@ -1,5 +1,25 @@
 import { config } from "./wdio.conf"
 
+// ==================
+// Specify Test Files
+// ==================
+// Define which test specs should run. The pattern is relative to the directory
+// of the configuration file being run.
+//
+// The specs are defined as an array of spec files (optionally using wildcards
+// that will be expanded). The test for each spec file will be run in a separate
+// worker process. In order to have a group of spec files run in the same worker
+// process simply enclose them in an array within the specs array.
+//
+// If you are calling `wdio` from an NPM script (see https://docs.npmjs.com/cli/run-script),
+// then the current working directory is where your `package.json` resides, so `wdio`
+// will be called from there.
+//
+config.specs = [
+    // '../test/specs/**/*.ts'
+    '../test/specs/test.e2e.ts'
+    // '../test/specs/TestWDIO.ts'
+],
 // ============
 // Capabilities
 // ============
@@ -14,10 +34,13 @@ import { config } from "./wdio.conf"
 // files and you set maxInstances to 10, all spec files will get tested at the same time
 // and 30 processes will get spawned. The property handles how many capabilities
 // from the same test should run tests.
-
+//
 config.maxInstances = 1;
-
-let browser: string = process.env.BROWSER ? process.env.BROWSER : "chrome";
+//
+// If you have trouble getting all important capabilities together, check out the
+// Sauce Labs platform configurator - a great tool to configure your capabilities:
+// https://saucelabs.com/platform/platform-configurator
+let browser: string = process.env.BROWSER || "firefox";
 switch (browser) {
     case "chrome":
         config.capabilities = [{
