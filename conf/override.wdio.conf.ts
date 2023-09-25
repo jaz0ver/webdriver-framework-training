@@ -44,7 +44,18 @@ let browser: string = process.env.BROWSER || "firefox";
 switch (browser) {
     case "chrome":
         config.capabilities = [{
-            browserName: 'chrome'
+            browserName: 'chrome',
+            acceptInsecureCerts: true,
+            'goog:chromeOptions': { 
+                // https://developer.chrome.com/articles/new-headless/#new-headless-in-selenium-webdriver
+                // https://stackoverflow.com/questions/69173469/meaning-of-selenium-chromeoptions
+                // args: [
+                //     '--headless=new',
+                //     '--disable-gpu',
+                //     '--disable-dev-shm-usage'
+                // ],
+                debuggerAddress: 'localhost:9222'
+            }
         }]
         break;
     case "firefox":
@@ -67,5 +78,4 @@ switch (browser) {
         }]
         break;
 }
-
 exports.config = config
