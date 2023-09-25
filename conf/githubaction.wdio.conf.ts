@@ -51,7 +51,7 @@ config.capabilities = [{
             '--disable-gpu',
             '--disable-dev-shm-usage'
         ],
-        debuggerAddress: 'localhost:9222'
+        // debuggerAddress: 'localhost:9222'
     }
 }]
 
