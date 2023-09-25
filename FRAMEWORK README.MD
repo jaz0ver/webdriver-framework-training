@@ -55,7 +55,7 @@ Allure reporting
 EXECUTION:
 1. Set desire test in specs of wdio.conf.ts
 2. Run the following in terminal
-    a. $env:env="qa"; npm run browser
+    a. npm run wdio:override env=qa
     b. "browser" is configured in tsconfig.json
 3. Follow the instruction in url if you have issues in opening the report 
     https://www.webmo.net/link/help/AccessingLocalFiles.html
