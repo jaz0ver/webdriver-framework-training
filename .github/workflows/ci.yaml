@@ -1,11 +1,6 @@
 # https://webdriver.io/docs/githubactions
 name: CI
-# on: [push, pull_request]
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#       - main
+
 on: [push]
   push:
     branches:
