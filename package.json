@@ -27,6 +27,7 @@
     "wdio:web": "wdio run ./conf/web.wdio.conf.ts --suite login",
     "wdio:android": "wdio run ./conf/android.wdio.conf.ts",
     "wdio:ios": "wdio run ./conf/ios.wdio.conf.ts",
-    "wdio:web:suite": "wdio run ./conf/web.wdio.conf.ts --suite login"
+    "wdio:web:suite": "wdio run ./conf/web.wdio.conf.ts --suite login env=qa",
+    "wdio:web:spec": "wdio run ./conf/web.wdio.conf.ts --spec ./test/testcases/test.e2e.ts login env=qa"
   }
 }
