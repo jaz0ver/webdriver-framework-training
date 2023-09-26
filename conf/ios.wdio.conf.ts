@@ -1,6 +1,6 @@
 import { config } from "./wdio.conf"
-const suites = require("../test/suites/ios.testrunner").suites
-const specs = require("../test/suites/ios.testrunner").specs
+const suites = require("../test/testrunner/ios.testrunner").suites
+const specs = require("../test/testrunner/ios.testrunner").specs
 
 // ==================
 // Specify Test Files

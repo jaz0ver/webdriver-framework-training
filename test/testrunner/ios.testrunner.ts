@@ -4,16 +4,15 @@ module.exports = {
     // Or, run multiple suites at once:
     // npm run wdio:ios --suite sample --suite sample2
     "suites": {
-        test: [
-                '../test/specs/TestWDIO.ts'
+        login: [
+            '../test/testcases/login/test.e2e.login.ts'
         ],
         e2e: [
-                '../test/specs/test.e2e.ts'
+                '../test/testcases/test.e2e.ts'
         ],
-        all: ["../test/specs/**/*.ts"]
+        all: ['../test/testcases/**/*.ts']
     },
     "specs": [
-        '../test/specs/test.e2e.ts',
-        '../test/specs/TestWDIO.ts'
+        '../test/testcases/**/*.ts'
     ]
 }

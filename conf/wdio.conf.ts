@@ -80,16 +80,16 @@ export const config: Options.Testrunner = {
     // will be called from there.
     //
     // specs: [
-    //     '../test/specs/**/*.ts'
+    //     '../test/testcases/**/*.ts'
     // ],
     // suites: {
-    //     test: [
-    //             '../test/specs/TestWDIO.ts'
+    //     login: [
+    //             './test/testcases/login/TestWDIO.ts'
     //     ],
     //     e2e: [
-    //             '../test/specs/test.e2e.ts'
+    //             '../test/testcases/test.e2e.ts'
     //     ],
-    //     all: ['../test/specs/**/*.ts']
+    //     all: ['../test/testcases/**/*.ts']
     // },
     // Patterns to exclude.
     exclude: [
