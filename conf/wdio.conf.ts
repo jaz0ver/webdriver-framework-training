@@ -34,15 +34,15 @@ requiredVariables.forEach(variable => {
         key = variable.substring(0, variable.indexOf("="));
         value = variable.substring(variable.indexOf("=")+1);
         process.env[key] = value;
-        console.log(`process.env[${key}]: ${value}`);
+        console.log(`process.env.${key.toUpperCase()}: ${value}`);
     }
 });
 
-const environments = (require("../main/resources/config/env/env.json")).environment;
+// Set dynamic baseUrl in reference to environment
+const enviDetails = (require("../main/resources/config/env/env.json")).environment;
 const env: string = process.env.ENV ? process.env.ENV : 'qa';
-if (Object.keys(environments).includes(env)) {
-    process.env.ENV_DETAILS = environments[env]; 
-    baseUrl = environments[env].baseUrl;
+if (Object.keys(enviDetails).includes(env)) {
+    baseUrl = enviDetails[env].baseUrl;
     process.env.BASEURL = baseUrl;
 } else {
     console.log('Please set the environment in command line, options: dev | qa. (Windows: $Env:Env="<env>"; npm run wdio) or (MAC: npm run wdio Env=<env>)')
@@ -79,9 +79,18 @@ export const config: Options.Testrunner = {
     // then the current working directory is where your `package.json` resides, so `wdio`
     // will be called from there.
     //
-    specs: [
-        '../test/specs/**/*.ts'
-    ],
+    // specs: [
+    //     '../test/specs/**/*.ts'
+    // ],
+    // suites: {
+    //     test: [
+    //             '../test/specs/TestWDIO.ts'
+    //     ],
+    //     e2e: [
+    //             '../test/specs/test.e2e.ts'
+    //     ],
+    //     all: ['../test/specs/**/*.ts']
+    // },
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'

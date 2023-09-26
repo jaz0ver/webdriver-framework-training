@@ -5,6 +5,7 @@ const allureReporter = require('@wdio/allure-reporter').default
 
 describe('My Login application', () => {
     it('should login with valid credentials', async () => {
+
         allureReporter.addArgument("Author", "Zenric Navea");
         allureReporter.addFeature("valid Login");
         allureReporter.addDescription("<b>Logging with valid credentials<b>", "hmtl");

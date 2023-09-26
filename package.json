@@ -23,8 +23,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "wdio": "wdio run ./conf/wdio.conf.ts",
-    "wdio:override": "wdio run ./conf/override.wdio.conf.ts",
-    "wdio:githubaction": "wdio run ./conf/githubaction.wdio.conf.ts",
-    "wdio:android": "wdio run ./conf/android.wdio.conf.ts"
+    "wdio:githubaction": "wdio run ./conf/githubaction.wdio.conf.ts env=qa",
+    "wdio:desktop": "wdio run ./conf/desktop.wdio.conf.ts",
+    "wdio:android": "wdio run ./conf/android.wdio.conf.ts",
+    "wdio:ios": "wdio run ./conf/ios.wdio.conf.ts"
   }
 }

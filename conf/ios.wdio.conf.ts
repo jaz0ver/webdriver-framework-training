@@ -1,4 +1,6 @@
 import { config } from "./wdio.conf"
+const suites = require("../test/suites/ios.testrunner").suites
+const specs = require("../test/suites/ios.testrunner").specs
 
 // ==================
 // Specify Test Files
@@ -15,11 +17,8 @@ import { config } from "./wdio.conf"
 // then the current working directory is where your `package.json` resides, so `wdio`
 // will be called from there.
 //
-config.specs = [
-    // '../test/specs/**/*.ts'
-    '../test/specs/test.e2e.ts'
-    // '../test/specs/TestWDIO.ts'
-],
+config.specs = specs;
+config.suites = suites;
 // ============
 // Capabilities
 // ============
