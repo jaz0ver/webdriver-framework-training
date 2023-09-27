@@ -282,9 +282,9 @@ export const config: Options.Testrunner = {
                         console.error("Please start APPIUM server.\n"+e);
                         process.exit(1);
                     }); 
-                }
-                if (a.includes("android")) {
-                    if (deviceName) setupAndroidEmulator(deviceName);
+                    if (a.includes("android")) {
+                        if (deviceName) setupAndroidEmulator(deviceName);
+                    }
                 }
                 break;
             }  
