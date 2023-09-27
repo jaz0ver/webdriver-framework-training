@@ -16,7 +16,7 @@ import { config } from "./wdio.conf"
 // will be called from there.
 //
 config.specs = [
-    '../test/specs/test.e2e.ts'
+    '../test/testcases/test.e2e.ts'
 ],
 // ============
 // Capabilities
