@@ -25,9 +25,6 @@ on:
         description: 'Attach reporting'
         type: boolean
         required: false
-  push:
-    branches:
-      - practice
 
 jobs:
   build:
