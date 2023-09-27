@@ -4,21 +4,5 @@
     "team": "Alpha",
     "implicit_timeout": 0,
     "explicit_timeout": 5,
-    "grid_hub": "http://localhost:4444/wd/hub",
-    "environment" : {
-        "qa": {
-            "baseUrl": "https://the-internet.herokuapp.com",
-            "account": {
-                "user": "qa",
-                "pass": "pass"
-            }
-        },
-        "dev": {
-            "baseUrl": "https://www.facebook.com/",
-            "account": {
-                "user": "dev",
-                "pass": "pass"
-            }
-        }
-    }
+    "grid_hub": "http://localhost:4444/wd/hub"
 }
