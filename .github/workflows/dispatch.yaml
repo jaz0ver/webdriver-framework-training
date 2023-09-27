@@ -48,7 +48,7 @@ jobs:
           run: npm run wdio:githubaction:dispatch env=${{github.event.inputs.environment}} browser=${{github.event.inputs.browser}}
 
         - name: Upload Report
-          if: [github.event.inputs.artifact == 'true']
+          if: github.event.inputs.artifact == 'true'
           uses: actions/upload-artifact@v3
           with:
             name: allure
