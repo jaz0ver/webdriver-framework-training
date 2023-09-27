@@ -1,5 +1,5 @@
 # https://webdriver.io/docs/githubactions
-name: Dispatch
+name: Dispatch2
 on:
   workflow_dispatch:
     inputs:
