@@ -2,7 +2,8 @@
 import type { Options } from '@wdio/types'
 const allure = require('allure-commandline')
 const allureReporter = require('@wdio/allure-reporter').default
-import {getReportPathWithTime} from '../main/utilities/CommonFunctions'
+import {getReportPathWithTime} from '../main/utilities/common.functions'
+import setupAndroidEmulator from "../main/utilities/setup.android.emulator"
 
 let baseUrl: string;
 let reportDir: string;
@@ -269,6 +270,26 @@ export const config: Options.Testrunner = {
      */
     // onWorkerStart: function (cid, caps, specs, args, execArgv) {
     // },
+    onWorkerStart: function (_cid, caps) {
+        const deviceName = caps['appium:deviceName']; 
+        for (const a of process.argv) {
+            if (a.includes(".conf.ts")) {
+                if (a.includes("android") || a.includes("ios")) {
+                    const https = require('node:http');
+                    https.get('http://127.0.0.1:4723/status', () => {
+                        console.log("Appium is running");
+                    }).on('error', (e: string) => {
+                        console.error("Please start APPIUM server.\n"+e);
+                        process.exit(1);
+                    }); 
+                }
+                if (a.includes("android")) {
+                    if (deviceName) setupAndroidEmulator(deviceName);
+                }
+                break;
+            }  
+        }
+    },
     /**
      * Gets executed just after a worker process has exited.
      * @param  {string} cid      capability id (e.g 0-0)

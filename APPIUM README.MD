@@ -35,7 +35,12 @@ https://appium.readthedocs.io/en/stable/en/writing-running-appium/web/chromedriv
     d. .\emulator -avd Pixel_3_Android_10
 
 
-WEB Capabilities
+# Running a Headless Emulator
+You can run an emulator without creating a window on your desktop (useful for ssh):
+$ sudo apt-get install xvfb-run
+$ xvfb-run ~/Android/Sdk/emulator/emulator -gpu off @EMULATOR_ID
+
+# WEB Capabilities
 capabilities = [{
     "appium:platformName": "Android",
     "appium:automationName": "UiAutomator2",
@@ -46,7 +51,7 @@ capabilities = [{
 }]
 
 
-NATIVE Capabilities
+# NATIVE Capabilities
 capabilities = [{
     "appium:platformName": "Android",
     "appium:automationName": "UiAutomator2",
