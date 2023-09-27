@@ -39,7 +39,7 @@ config.maxInstances = 1;
 // Sauce Labs platform configurator - a great tool to configure your capabilities:
 // https://saucelabs.com/platform/platform-configurator
 config.capabilities = [{
-    browserName: 'chrome',
+    browserName: process.env.BROWSER || "chrome",
     'goog:chromeOptions': { 
         // https://developer.chrome.com/articles/new-headless/#new-headless-in-selenium-webdriver
         // https://stackoverflow.com/questions/69173469/meaning-of-selenium-chromeoptions

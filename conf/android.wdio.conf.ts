@@ -44,7 +44,7 @@ config.capabilities = [{
     "appium:platformVersion": "10",
     "appium:deviceName": "Pixel_3_Android_10",
     "appium:automationName": "UiAutomator2",
-    "appium:browserName": "Chrome",
+    "appium:browserName": process.env.BROWSER || "chrome",
     "appium:noReset": true
 }];
 //

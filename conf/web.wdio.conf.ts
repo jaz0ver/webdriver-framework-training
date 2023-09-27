@@ -39,7 +39,7 @@ config.maxInstances = 1;
 // If you have trouble getting all important capabilities together, check out the
 // Sauce Labs platform configurator - a great tool to configure your capabilities:
 // https://saucelabs.com/platform/platform-configurator
-let browser: string = process.env.BROWSER || "firefox";
+const browser: string = process.env.BROWSER || "firefox";
 switch (browser) {
     case "chrome":
         config.capabilities = [{
