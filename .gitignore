@@ -1,3 +1,4 @@
 node_modules
 reports/allure*
 reports/logs/appium/*
+.env
