@@ -43,7 +43,7 @@ jobs:
 
         - name: Test
           run: npm run wdio:githubaction:dispatch env=${{github.event.inputs.environment}} browser=${{github.event.inputs.browser}}
-          continue-on-error: true
+          # continue-on-error: true
 
         - name: Upload Report
           if: github.event.inputs.artifact == 'true'
