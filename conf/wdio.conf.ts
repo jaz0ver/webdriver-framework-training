@@ -2,45 +2,23 @@
 import type { Options } from '@wdio/types'
 const allure = require('allure-commandline')
 const allureReporter = require('@wdio/allure-reporter').default
-import { getReportPathWithTime } from '../main/utilities/common.functions'
+import { getReportPathWithTime, checkReqVariablesCMD, extractAllVariablesInCMD, getVariableInCMD } from '../main/utilities/common.functions'
 import setupAndroidEmulator from "../main/utilities/setup.android.emulator"
+
 
 let baseUrl: string;
 let reportDir: string;
 let resultDir: string = './reports/allure/allure-results';
 
-// Check required variables are existing 
-let requiredVariables = [
+extractAllVariablesInCMD();
+checkReqVariablesCMD([
     // "browser",
     "env"
-]
-requiredVariables.forEach(variable => {
-    let reqVar = false;
-    for (const envVar of process.argv) {
-        envVar.includes(`${variable}=`) ? reqVar = true : reqVar = false;
-        if (reqVar) {
-            break;
-        }
-    }
-    if (!reqVar) {
-        console.log(`${variable.toUpperCase()} was not declared. Please add in the command line, e.g. ${variable}=foo`);
-        process.exit(1);
-    }
-});
-
-// Extract all declared variables
-(process.argv).forEach(variable => {
-    if (variable.includes("=")) {
-        let key, value;
-        key = variable.substring(0, variable.indexOf("="));
-        value = variable.substring(variable.indexOf("=")+1);
-        process.env[key] = value;
-    }
-});
+]);
 
 // Set dynamic baseUrl in reference to environment
 const enviDetails = (require("../main/resources/config/env/env.json")).environment;
-const env: string = process.env.ENV ? process.env.ENV : 'qa';
+const env: string = getVariableInCMD('env');
 if (Object.keys(enviDetails).includes(env)) {
     baseUrl = enviDetails[env].baseUrl;
     process.env.BASEURL = baseUrl;
@@ -118,7 +96,7 @@ export const config: Options.Testrunner = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: "chrome",
+        browserName: getVariableInCMD('browser'),
         timeouts: { implicit: 0, pageLoad: 300000, script: 30000 }
     }],
     // capabilities: [{
@@ -213,11 +191,11 @@ export const config: Options.Testrunner = {
         // The Jasmine framework allows interception of each assertion in order to log the state of the application
         // or website depending on the result. For example, it is pretty handy to take a screenshot every time
         // an assertion fails.
-        expectationResultHandler: function(_passed, _assertion) {
+        expectationResultHandler: function (_passed, _assertion) {
             // do something
         }
     },
-    
+
     //
     // =====
     // Hooks
@@ -236,14 +214,14 @@ export const config: Options.Testrunner = {
     onPrepare: function (config) {
         // Set dynamic report path. However, outputDir of report is not using the new path
         let fileName = config.specs?.toString() ? config.specs?.toString() : 'suite';
-        fileName = fileName.substring((fileName.lastIndexOf("/")+1), fileName.lastIndexOf(".ts"));
+        fileName = fileName.substring((fileName.lastIndexOf("/") + 1), fileName.lastIndexOf(".ts"));
 
         if (config.specs?.length) {
             if (config.specs?.length == 1 && !config.specs?.toString().includes("/*.ts")) {
                 reportDir = getReportPathWithTime(fileName);
             } else {
                 reportDir = getReportPathWithTime("suite");
-            }   
+            }
         } else {
             reportDir = getReportPathWithTime("suite");
         }
@@ -251,7 +229,7 @@ export const config: Options.Testrunner = {
         try {
             const fs = require('fs');
             if (fs.existsSync(resultDir)) {
-                fs.rmSync(resultDir, {recursive: true})
+                fs.rmSync(resultDir, { recursive: true })
                 console.log(`${resultDir} is deleted.`)
             }
         } catch (error) {
@@ -270,7 +248,7 @@ export const config: Options.Testrunner = {
     // onWorkerStart: function (cid, caps, specs, args, execArgv) {
     // },
     onWorkerStart: function (_cid, caps) {
-        const deviceName = caps['appium:deviceName']; 
+        const deviceName = caps['appium:deviceName'];
         for (const a of process.argv) {
             if (a.includes(".conf.ts")) {
                 if (a.includes("android") || a.includes("ios")) {
@@ -278,15 +256,15 @@ export const config: Options.Testrunner = {
                     https.get('http://127.0.0.1:4723/status', () => {
                         console.log("Appium is running");
                     }).on('error', (e: string) => {
-                        console.error("Please start APPIUM server.\n"+e);
+                        console.error("Please start APPIUM server.\n" + e);
                         process.exit(1);
-                    }); 
+                    });
                     if (a.includes("android")) {
                         if (deviceName) setupAndroidEmulator(deviceName);
                     }
                 }
                 break;
-            }  
+            }
         }
     },
     /**
@@ -359,10 +337,10 @@ export const config: Options.Testrunner = {
      */
     // afterTest: function(test, context, { error, result, duration, passed, retries }) {
     // },
-    afterTest: async function(_test, _context, {}) {
+    afterTest: async function (_test, _context, { }) {
         // if (!passed) {
-            // await browser.takeScreenshot();
-            // allureReporter.addAttachment('Screenshot', Buffer.from(await browser.takeScreenshot(), 'base64'), 'image/png');
+        // await browser.takeScreenshot();
+        // allureReporter.addAttachment('Screenshot', Buffer.from(await browser.takeScreenshot(), 'base64'), 'image/png');
         // }
         allureReporter.addAttachment('Screenshot', Buffer.from(await browser.takeScreenshot(), 'base64'), 'image/png');
     },
@@ -408,7 +386,7 @@ export const config: Options.Testrunner = {
      */
     // onComplete: function(exitCode, config, capabilities, results) {
     // },
-    onComplete: function() {
+    onComplete: function () {
         const reportError = new Error('Could not generate Allure report')
         const generation = allure(['generate', resultDir, '-o', reportDir])
         return new Promise<void>((resolve, reject) => {
@@ -416,7 +394,7 @@ export const config: Options.Testrunner = {
                 () => reject(reportError),
                 5000)
 
-            generation.on('exit', function(exitCode: number) {
+            generation.on('exit', function (exitCode: number) {
                 clearTimeout(generationTimeout)
 
                 if (exitCode !== 0) {
