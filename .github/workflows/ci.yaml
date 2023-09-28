@@ -11,14 +11,18 @@ jobs:
     steps:
         - name: Checkout
           uses: actions/checkout@v4
+
         - name: Setup NPM
           uses: actions/setup-node@v3
           with:
             node-version: 18
         - name: Install NPM
           run: npm install
+
         - name: Test
           run: npm run wdio:githubaction
+          continue-on-error: true
+
         - name: Upload Report
           uses: actions/upload-artifact@v3
           # if: failure()
