@@ -1,4 +1,4 @@
-import { config } from "./wdio.conf"
+import { config, reportDir } from "./wdio.conf"
 const suites = require("../test/testrunner/android.testrunner").suites
 const specs = require("../test/testrunner/android.testrunner").specs
 
@@ -62,11 +62,10 @@ config.services = [
                 // port: 4723,
                 // path: '/wd/hub',
             },
-            logPath: "./logs/appium",
+            logPath: `${reportDir}logs/appium`,
         },
     ],
-],
-    // default appium port
-    config.port = 4723;
-
+];
+// default appium port
+config.port = 4723;
 exports.config = config

@@ -6,7 +6,7 @@ import {getReportPathWithTime} from '../main/utilities/common.functions'
 import setupAndroidEmulator from "../main/utilities/setup.android.emulator"
 
 let baseUrl: string;
-let reportDir: string;
+export let reportDir: string;
 let resultDir: string = './reports/allure/allure-results';
 
 // Check required variables are existing 
