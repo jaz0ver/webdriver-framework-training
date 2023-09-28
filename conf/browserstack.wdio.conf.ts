@@ -2,7 +2,7 @@ import { config } from "./wdio.conf"
 require('dotenv').config()
 // import { getLogPathWithTime } from '../main/utilities/common.functions'
 const suites = require("../test/testrunner/web.testrunner").suites
-const specs = require("../test/testrunner/web.testrunner").specs
+// const specs = require("../test/testrunner/web.testrunner").specs
 
 // ==================
 // Specify Test Files
@@ -19,7 +19,10 @@ const specs = require("../test/testrunner/web.testrunner").specs
 // then the current working directory is where your `package.json` resides, so `wdio`
 // will be called from there.
 //
-config.specs = specs;
+// config.specs = specs;
+config.specs = [
+    '../test/testcases/**/*.ts'
+];
 config.suites = suites;
 // ============
 // Capabilities
