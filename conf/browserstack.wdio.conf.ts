@@ -1,4 +1,5 @@
 import { config } from "./wdio.conf"
+require('dotenv').config()
 // import { getLogPathWithTime } from '../main/utilities/common.functions'
 const suites = require("../test/testrunner/web.testrunner").suites
 const specs = require("../test/testrunner/web.testrunner").specs
@@ -111,8 +112,8 @@ const commonCapabilities = {
 // Services take over a specific job you don't want to take care of. They enhance
 // your test setup with almost no effort. Unlike plugins, they don't add new
 // commands. Instead, they hook themselves up into the test process.
-config.user = process.env.BROWSERSTACK_USERNAME || 'zenricnavea_NyonKe';
-config.key = process.env.BROWSERSTACK_ACCESS_KEY || '5rvi2nY72YfEHa3i1i5R';
+config.user = process.env.BROWSERSTACK_USERNAME;
+config.key = process.env.BROWSERSTACK_ACCESS_KEY;
 config.services = [
     [
         'browserstack',
