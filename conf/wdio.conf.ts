@@ -84,7 +84,7 @@ export const config: Options.Testrunner = {
     // ],
     // suites: {
     //     login: [
-    //             './test/testcases/login/TestWDIO.ts'
+    //             './test/testcases/Login/TestWDIO.ts'
     //     ],
     //     e2e: [
     //             '../test/testcases/test.e2e.ts'

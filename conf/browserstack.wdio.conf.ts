@@ -21,7 +21,7 @@ const suites = require("../test/testrunner/web.testrunner").suites
 //
 // config.specs = specs;
 config.specs = [
-    '../test/testcases/login/test.e2e.login.ts'
+    '../test/testcases/Login/test.e2e.login.ts'
 ];
 config.suites = suites;
 // ============
