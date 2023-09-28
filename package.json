@@ -9,6 +9,7 @@
     "@types/jasmine": "^4.3.6",
     "@wdio/allure-reporter": "^8.16.12",
     "@wdio/appium-service": "^8.16.12",
+    "@wdio/browserstack-service": "^8.16.15",
     "@wdio/cli": "^8.16.12",
     "@wdio/jasmine-framework": "^8.16.12",
     "@wdio/local-runner": "^8.16.12",
@@ -24,12 +25,14 @@
     "wdio": "wdio run ./conf/wdio.conf.ts",
     "wdio:githubaction": "wdio run ./conf/githubaction.wdio.conf.ts env=qa",
     "wdio:githubaction:dispatch": "wdio run ./conf/githubaction.wdio.conf.ts",
+    "wdio:browserstack": "wdio run ./conf/browserstack.wdio.conf.ts env=qa",
+    "wdio:browserstack:suite": "wdio run ./conf/browserstack.wdio.conf.ts env=qa --suite login",
     "wdio:web": "wdio run ./conf/web.wdio.conf.ts",
-    "wdio:web:spec": "wdio run ./conf/web.wdio.conf.ts --spec ./test/testcases/test.e2e.ts login env=qa",
-    "wdio:web:suite": "wdio run ./conf/web.wdio.conf.ts --suite login env=qa",
+    "wdio:web:spec": "wdio run ./conf/web.wdio.conf.ts env=qa --spec ./test/testcases/test.e2e.ts",
+    "wdio:web:suite": "wdio run ./conf/web.wdio.conf.ts env=qa --suite login",
     "wdio:android": "wdio run ./conf/android.wdio.conf.ts",
-    "wdio:android:suite": "wdio run ./conf/android.wdio.conf.ts --suite login env=qa",
+    "wdio:android:suite": "wdio run ./conf/android.wdio.conf.ts env=qa --suite login",
     "wdio:ios": "wdio run ./conf/ios.wdio.conf.ts env=qa",
-    "wdio:ios:suite": "wdio run ./conf/ios.wdio.conf.ts  --suite login env=qa"
+    "wdio:ios:suite": "wdio run ./conf/ios.wdio.conf.ts env=qa --suite login"
   }
 }
