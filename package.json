@@ -23,16 +23,16 @@
   },
   "scripts": {
     "wdio": "wdio run ./conf/wdio.conf.ts",
-    "wdio:githubaction": "wdio run ./conf/githubaction.wdio.conf.ts env=qa",
+    "wdio:githubaction": "wdio run ./conf/githubaction.wdio.conf.ts",
     "wdio:githubaction:dispatch": "wdio run ./conf/githubaction.wdio.conf.ts",
-    "wdio:browserstack": "wdio run ./conf/browserstack.wdio.conf.ts env=qa",
+    "wdio:browserstack": "wdio run ./conf/browserstack.wdio.conf.ts",
     "wdio:browserstack:suite": "wdio run ./conf/browserstack.wdio.conf.ts env=qa --suite login",
     "wdio:web": "wdio run ./conf/web.wdio.conf.ts",
     "wdio:web:spec": "wdio run ./conf/web.wdio.conf.ts env=qa --spec ./test/testcases/test.e2e.ts",
     "wdio:web:suite": "wdio run ./conf/web.wdio.conf.ts env=qa --suite login",
     "wdio:android": "wdio run ./conf/android.wdio.conf.ts",
     "wdio:android:suite": "wdio run ./conf/android.wdio.conf.ts env=qa --suite login",
-    "wdio:ios": "wdio run ./conf/ios.wdio.conf.ts env=qa",
+    "wdio:ios": "wdio run ./conf/ios.wdio.conf.ts",
     "wdio:ios:suite": "wdio run ./conf/ios.wdio.conf.ts env=qa --suite login"
   },
   "dependencies": {
