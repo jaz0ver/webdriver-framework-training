@@ -21,7 +21,7 @@ jobs:
           run: npm install
 
         - name: Test
-          run: npm run wdio:githubaction:dispatch env=${{github.event.inputs.environment}} browser=${{github.event.inputs.browser}}
+          run: npm run wdio:githubaction env=qa browser=chrome
           # continue-on-error: true
 
         - name: Upload Report
