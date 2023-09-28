@@ -78,7 +78,14 @@ const chrome_android = {
     browserName: 'chrome',
     'bstack:options': {
         deviceName: 'Samsung Galaxy S20',
-    },
+    }
+};
+const safari_iphone = {
+    browserName: 'safari',
+    'bstack:options': {
+        deviceName: 'iPhone 12 Pro',
+        osVersion: '17',
+    }
 };
 switch (browser) {
     case "chrome":
@@ -96,8 +103,11 @@ switch (browser) {
     case "chrome_android":
         config.capabilities = [chrome_android];
         break;
+    case "safari_iphone":
+        config.capabilities = [safari_iphone];
+        break;
     case "all":
-        config.capabilities = [chrome, firefox, edge, safari, chrome_android];
+        config.capabilities = [chrome, firefox, edge, safari, chrome_android, safari_iphone];
         break;
     default:
         console.error(`Selected browser, ${browser} was not in the list.`);
