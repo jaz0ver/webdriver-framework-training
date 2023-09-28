@@ -1,4 +1,5 @@
 import { config } from "./wdio.conf"
+import { getVariableInCMD } from '../main/utilities/common.functions'
 
 // ==================
 // Specify Test Files
@@ -17,7 +18,7 @@ import { config } from "./wdio.conf"
 //
 config.specs = [
     '../test/testcases/test.e2e.ts'
-],
+];
 // 
 // ============
 // Capabilities
@@ -40,8 +41,8 @@ config.maxInstances = 1;
 // Sauce Labs platform configurator - a great tool to configure your capabilities:
 // https://saucelabs.com/platform/platform-configurator
 config.capabilities = [{
-    browserName: process.env.BROWSER || "chrome",
-    'goog:chromeOptions': { 
+    browserName: getVariableInCMD('browser'),
+    'goog:chromeOptions': {
         // https://developer.chrome.com/articles/new-headless/#new-headless-in-selenium-webdriver
         // https://stackoverflow.com/questions/69173469/meaning-of-selenium-chromeoptions
         args: [
@@ -50,5 +51,5 @@ config.capabilities = [{
             '--disable-dev-shm-usage'
         ],
     }
-}]
+}];
 exports.config = config

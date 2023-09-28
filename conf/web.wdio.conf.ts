@@ -1,4 +1,5 @@
 import { config } from "./wdio.conf"
+import { getVariableInCMD } from "../main/utilities/common.functions";
 const suites = require("../test/testrunner/web.testrunner").suites
 const specs = require("../test/testrunner/web.testrunner").specs
 
@@ -39,7 +40,6 @@ config.maxInstances = 3;
 // If you have trouble getting all important capabilities together, check out the
 // Sauce Labs platform configurator - a great tool to configure your capabilities:
 // https://saucelabs.com/platform/platform-configurator
-const browser: string = process.env.BROWSER || "chrome";
 const chrome = {
     browserName: 'chrome',
     acceptInsecureCerts: true
@@ -52,7 +52,7 @@ const edge = {
     browserName: 'MicrosoftEdge',
     acceptInsecureCerts: true
 };
-switch (browser) {
+switch (getVariableInCMD('browser')) {
     case "chrome":
         config.capabilities = [chrome]
         break;
@@ -65,5 +65,8 @@ switch (browser) {
     case "all":
         config.capabilities = [chrome, firefox, edge]
         break;
+    default:
+        console.error(`Selected browser, ${browser} was not in the list.`);
+        process.exit(1);
 }
 exports.config = config

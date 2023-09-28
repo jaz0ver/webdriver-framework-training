@@ -1,6 +1,6 @@
 import { config } from "./wdio.conf"
+import { getVariableInCMD } from '../main/utilities/common.functions'
 require('dotenv').config()
-// import { getLogPathWithTime } from '../main/utilities/common.functions'
 const suites = require("../test/testrunner/web.testrunner").suites
 // const specs = require("../test/testrunner/web.testrunner").specs
 
@@ -68,7 +68,6 @@ config.maxInstances = 1;
 // If you have trouble getting all important capabilities together, check out the
 // Sauce Labs platform configurator - a great tool to configure your capabilities:
 // https://saucelabs.com/platform/platform-configurator
-const browser: string = process.env.BROWSER || '';
 const chrome = {
     browserName: 'chrome',
     browserVersion: 'latest',
@@ -114,7 +113,7 @@ const safari_iphone = {
         osVersion: '17',
     }
 };
-switch (browser) {
+switch (getVariableInCMD('browser')) {
     case "chrome":
         config.capabilities = [chrome];
         break;
