@@ -35,7 +35,6 @@ requiredVariables.forEach(variable => {
         key = variable.substring(0, variable.indexOf("="));
         value = variable.substring(variable.indexOf("=")+1);
         process.env[key] = value;
-        console.log(`process.env.${key.toUpperCase()}: ${value}`);
     }
 });
 
