@@ -1,4 +1,5 @@
-import { config, reportDir } from "./wdio.conf"
+import { config } from "./wdio.conf"
+import { getLogPathWithTime } from '../main/utilities/common.functions'
 const suites = require("../test/testrunner/ios.testrunner").suites
 const specs = require("../test/testrunner/ios.testrunner").specs
 
@@ -62,7 +63,7 @@ config.services = [
                 // port: 4723,
                 // path: '/wd/hub',
             },
-            logPath: `${reportDir}logs/appium`,
+            logPath: `${getLogPathWithTime('appium')}`,
         },
     ],
 ];

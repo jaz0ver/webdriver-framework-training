@@ -1,4 +1,5 @@
-import { config, reportDir } from "./wdio.conf"
+import { config } from "./wdio.conf"
+// import { getLogPathWithTime } from '../main/utilities/common.functions'
 const suites = require("../test/testrunner/web.testrunner").suites
 const specs = require("../test/testrunner/web.testrunner").specs
 
@@ -91,9 +92,14 @@ switch (browser) {
     case "safari":
         config.capabilities = [safari];
         break;
+    case "chrome_android":
+        config.capabilities = [chrome_android];
+        break;
     case "all":
         config.capabilities = [chrome, firefox, edge, safari, chrome_android];
         break;
+    default:
+        console.error(`Selected browser, ${browser} was not in the list.`);
 };
 const commonCapabilities = {
     'bstack:options': {
@@ -108,16 +114,22 @@ const commonCapabilities = {
 config.user = process.env.BROWSERSTACK_USERNAME || 'zenricnavea_NyonKe';
 config.key = process.env.BROWSERSTACK_ACCESS_KEY || '5rvi2nY72YfEHa3i1i5R';
 config.services = [
-    ['browserstack', {
-        testObservability: true,
-        testObservabilityOptions: {
-            projectName: "Browserstack WDIO - ZEN",
-            buildName: "The static build job name goes here e.g. Nightly regression"
-        },
-        browserstackLocal: true,
-        logFile: `${reportDir}logs/browserstack.log`
-    }]
+    [
+        'browserstack',
+        {
+            testObservability: true,
+            testObservabilityOptions: {
+                projectName: "Browserstack WDIO - ZEN",
+                buildName: "The static build job name goes here e.g. Nightly regression"
+            },
+            browserstackLocal: true,
+            opts: {
+                // logFile: `${getLogPathWithTime('browserstack')}local.log`
+            }
+        }
+    ]
 ];
+
 exports.config = config
 // Code to support common capabilities
 exports.config.capabilities.forEach(function (caps: { [x: string]: any; }): any {

@@ -2,11 +2,11 @@
 import type { Options } from '@wdio/types'
 const allure = require('allure-commandline')
 const allureReporter = require('@wdio/allure-reporter').default
-import {getReportPathWithTime} from '../main/utilities/common.functions'
+import { getReportPathWithTime } from '../main/utilities/common.functions'
 import setupAndroidEmulator from "../main/utilities/setup.android.emulator"
 
 let baseUrl: string;
-export let reportDir: string;
+let reportDir: string;
 let resultDir: string = './reports/allure/allure-results';
 
 // Check required variables are existing 
