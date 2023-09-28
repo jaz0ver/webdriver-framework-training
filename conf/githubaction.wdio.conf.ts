@@ -18,6 +18,7 @@ import { config } from "./wdio.conf"
 config.specs = [
     '../test/testcases/test.e2e.ts'
 ],
+// 
 // ============
 // Capabilities
 // ============

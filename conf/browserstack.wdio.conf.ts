@@ -24,6 +24,30 @@ config.specs = [
     '../test/testcases/Login/test.e2e.login.ts'
 ];
 config.suites = suites;
+//
+// Test runner services
+// Services take over a specific job you don't want to take care of. They enhance
+// your test setup with almost no effort. Unlike plugins, they don't add new
+// commands. Instead, they hook themselves up into the test process.
+config.user = process.env.BROWSERSTACK_USERNAME;
+config.key = process.env.BROWSERSTACK_ACCESS_KEY;
+config.services = [
+    [
+        'browserstack',
+        {
+            testObservability: true,
+            testObservabilityOptions: {
+                projectName: "Browserstack WDIO - ZEN",
+                buildName: "The static build job name goes here e.g. Nightly regression"
+            },
+            browserstackLocal: true,
+            opts: {
+                // logFile: `${getLogPathWithTime('browserstack')}local.log`
+            }
+        }
+    ]
+];
+// 
 // ============
 // Capabilities
 // ============
@@ -44,7 +68,7 @@ config.maxInstances = 1;
 // If you have trouble getting all important capabilities together, check out the
 // Sauce Labs platform configurator - a great tool to configure your capabilities:
 // https://saucelabs.com/platform/platform-configurator
-const browser: string = process.env.BROWSER || 'firefox';
+const browser: string = process.env.BROWSER || '';
 const chrome = {
     browserName: 'chrome',
     browserVersion: 'latest',
@@ -121,30 +145,6 @@ const commonCapabilities = {
         buildName: 'browserstack-build-1'
     },
 };
-//
-// Test runner services
-// Services take over a specific job you don't want to take care of. They enhance
-// your test setup with almost no effort. Unlike plugins, they don't add new
-// commands. Instead, they hook themselves up into the test process.
-config.user = process.env.BROWSERSTACK_USERNAME;
-config.key = process.env.BROWSERSTACK_ACCESS_KEY;
-config.services = [
-    [
-        'browserstack',
-        {
-            testObservability: true,
-            testObservabilityOptions: {
-                projectName: "Browserstack WDIO - ZEN",
-                buildName: "The static build job name goes here e.g. Nightly regression"
-            },
-            browserstackLocal: true,
-            opts: {
-                // logFile: `${getLogPathWithTime('browserstack')}local.log`
-            }
-        }
-    ]
-];
-
 exports.config = config
 // Code to support common capabilities
 exports.config.capabilities.forEach(function (caps: { [x: string]: any; }): any {
