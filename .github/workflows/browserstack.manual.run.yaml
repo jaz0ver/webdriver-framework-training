@@ -49,7 +49,7 @@ jobs:
             BROWSERSTACK_USERNAME: ${{secrets.BROWSERSTACK_USERNAME}}
             BROWSERSTACK_ACCESS_KEY: ${{secrets.BROWSERSTACK_ACCESS_KEY}}
           # run: npm run wdio:browserstack env=${{inputs.environment}} browser=${{inputs.browser}}
-          run: wdio run ./conf/browserstack.wdio.conf.ts env=${{github.event.inputs.environment}} browser=${{github.event.inputs.browser}} --spec ./test/testcases/Login/test.e2e.ts
+          run: npx wdio run ./conf/browserstack.wdio.conf.ts --spec ./test/testcases/Login/test.e2e.ts env=${{github.event.inputs.environment}} browser=${{github.event.inputs.browser}} 
           # continue-on-error: true
 
         - name: Upload Report
