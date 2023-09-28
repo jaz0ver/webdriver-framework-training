@@ -1,5 +1,5 @@
 # https://webdriver.io/docs/githubactions
-name: Manual run
+name: Browserstack - Manual run
 on:
   workflow_dispatch:
     inputs:
