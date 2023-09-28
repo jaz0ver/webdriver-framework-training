@@ -392,7 +392,7 @@ export const config: Options.Testrunner = {
         return new Promise<void>((resolve, reject) => {
             const generationTimeout = setTimeout(
                 () => reject(reportError),
-                5000)
+                8000)
 
             generation.on('exit', function (exitCode: number) {
                 clearTimeout(generationTimeout)
