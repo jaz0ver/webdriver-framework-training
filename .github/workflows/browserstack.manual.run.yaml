@@ -12,6 +12,9 @@ on:
         - chrome
         - firefox
         - edge
+        - safari
+        - chrome_android
+        - safari_iphone
       environment:
         description: 'Select environment'
         required: true
