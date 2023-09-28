@@ -5,7 +5,7 @@ module.exports = {
     // npm run wdio:ios --suite sample --suite sample2
     "suites": {
         login: [
-            '../test/testcases/login/test.e2e.login.ts'
+            '../test/testcases/Login/test.e2e.login.ts'
         ],
         e2e: [
                 '../test/testcases/test.e2e.ts'
