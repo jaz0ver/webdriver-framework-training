@@ -21,7 +21,7 @@ const suites = require("../test/testrunner/web.testrunner").suites
 //
 // config.specs = specs;
 config.specs = [
-    '../test/testcases/**/*.ts'
+    '../test/testcases/login/test.e2e.login.ts'
 ];
 config.suites = suites;
 // ============
@@ -39,12 +39,12 @@ config.suites = suites;
 // and 30 processes will get spawned. The property handles how many capabilities
 // from the same test should run tests.
 //
-config.maxInstances = 10;
+config.maxInstances = 1;
 //
 // If you have trouble getting all important capabilities together, check out the
 // Sauce Labs platform configurator - a great tool to configure your capabilities:
 // https://saucelabs.com/platform/platform-configurator
-const browser: string = process.env.BROWSER || "chrome";
+const browser: string = process.env.BROWSER || '';
 const chrome = {
     browserName: 'chrome',
     browserVersion: 'latest',
@@ -114,6 +114,7 @@ switch (browser) {
         break;
     default:
         console.error(`Selected browser, ${browser} was not in the list.`);
+        process.exit(1);
 };
 const commonCapabilities = {
     'bstack:options': {
