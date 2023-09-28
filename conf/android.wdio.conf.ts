@@ -20,6 +20,28 @@ const specs = require("../test/testrunner/android.testrunner").specs
 //
 config.specs = specs;
 config.suites = suites;
+//
+// Test runner services
+// Services take over a specific job you don't want to take care of. They enhance
+// your test setup with almost no effort. Unlike plugins, they don't add new
+// commands. Instead, they hook themselves up into the test process.
+config.services = [
+    [
+        "appium",
+        {
+            args: {
+                relaxedSecurity: true,
+                address: "localhost",
+                // port: 4723,
+                // path: '/wd/hub',
+            },
+            logPath: `${getLogPathWithTime('appium')}`,
+        },
+    ],
+];
+// default appium port
+config.port = 4723;
+// 
 // ============
 // Capabilities
 // ============
@@ -48,25 +70,4 @@ config.capabilities = [{
     "appium:browserName": process.env.BROWSER || "chrome",
     "appium:noReset": true
 }];
-//
-// Test runner services
-// Services take over a specific job you don't want to take care of. They enhance
-// your test setup with almost no effort. Unlike plugins, they don't add new
-// commands. Instead, they hook themselves up into the test process.
-config.services = [
-    [
-        "appium",
-        {
-            args: {
-                relaxedSecurity: true,
-                address: "localhost",
-                // port: 4723,
-                // path: '/wd/hub',
-            },
-            logPath: `${getLogPathWithTime('appium')}`,
-        },
-    ],
-];
-// default appium port
-config.port = 4723;
 exports.config = config
