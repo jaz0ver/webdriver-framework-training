@@ -1,30 +1,9 @@
 # https://webdriver.io/docs/githubactions
-name: Web - Manual run
+name: Web - Scheduled
 on:
+  scheduled:
+    - cron: 30 11 * * 1-5 
   workflow_dispatch:
-    inputs:
-      browser:
-        description: 'Select browser'
-        required: true
-        default: 'chrome'
-        type: choice
-        options: 
-        - chrome
-        - firefox
-        - edge
-      environment:
-        description: 'Select environment'
-        required: true
-        default: 'qa'
-        type: choice
-        options: 
-        - qa
-        - dev
-        - prod
-      artifact:
-        description: 'Attach reporting'
-        type: boolean
-        required: false
 
 jobs:
   build:
@@ -42,7 +21,7 @@ jobs:
           run: npm install
 
         - name: Test
-          run: npm run wdio:githubaction:dispatch env=${{inputs.environment}} browser=${{inputs.browser}}
+          run: npm run wdio:githubaction:dispatch env=${{github.event.inputs.environment}} browser=${{github.event.inputs.browser}}
           # continue-on-error: true
 
         - name: Upload Report

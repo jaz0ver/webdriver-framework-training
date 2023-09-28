@@ -1,5 +1,5 @@
 # https://webdriver.io/docs/githubactions
-name: Web - CI
+name: Web - CI - Every push
 # on:[push, pull_request]
 on:
   push:
