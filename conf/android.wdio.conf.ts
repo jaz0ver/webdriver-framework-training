@@ -1,4 +1,5 @@
 import { config } from "./wdio.conf"
+import { getLogPathWithTime } from '../main/utilities/common.functions'
 const suites = require("../test/testrunner/android.testrunner").suites
 const specs = require("../test/testrunner/android.testrunner").specs
 
@@ -62,11 +63,10 @@ config.services = [
                 // port: 4723,
                 // path: '/wd/hub',
             },
-            logPath: "./logs/appium",
+            logPath: `${getLogPathWithTime('appium')}`,
         },
     ],
-],
-    // default appium port
-    config.port = 4723;
-
+];
+// default appium port
+config.port = 4723;
 exports.config = config

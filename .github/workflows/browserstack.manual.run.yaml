@@ -1,0 +1,56 @@
+# https://webdriver.io/docs/githubactions
+name: Manual run
+on:
+  workflow_dispatch:
+    inputs:
+      browser:
+        description: 'Select browser'
+        required: true
+        default: 'chrome'
+        type: choice
+        options: 
+        - chrome
+        - firefox
+        - edge
+      environment:
+        description: 'Select environment'
+        required: true
+        default: 'qa'
+        type: choice
+        options: 
+        - qa
+        - dev
+        - prod
+      artifact:
+        description: 'Attach reporting'
+        type: boolean
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: Setup NPM
+          uses: actions/setup-node@v3
+          with:
+            node-version: 18
+
+        - name: Install NPM
+          run: npm install
+
+        - name: Test
+          env:
+            BROWSERSTACK_USERNAME: ${{secrets.BROWSERSTACK_USERNAME}}
+            BROWSERSTACK_ACCESS_KEY: ${{secrets.BROWSERSTACK_ACCESS_KEY}}
+          run: npx wdio run ./conf/browserstack.wdio.conf.ts env=${{github.event.inputs.environment}} browser=${{github.event.inputs.browser}} --suite login
+          continue-on-error: true
+
+        - name: Upload Report
+          if: github.event.inputs.artifact == 'true'
+          uses: actions/upload-artifact@v3
+          with:
+            name: allure
+            path: ./reports/allure/allure-report

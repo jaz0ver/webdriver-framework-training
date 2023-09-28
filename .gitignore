@@ -1,2 +1,5 @@
 node_modules
-allure*
+reports/allure*
+reports/logs/appium/*
+.env
+*.log

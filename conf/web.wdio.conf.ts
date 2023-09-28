@@ -34,46 +34,36 @@ config.suites = suites;
 // and 30 processes will get spawned. The property handles how many capabilities
 // from the same test should run tests.
 //
-config.maxInstances = 1;
+config.maxInstances = 3;
 //
 // If you have trouble getting all important capabilities together, check out the
 // Sauce Labs platform configurator - a great tool to configure your capabilities:
 // https://saucelabs.com/platform/platform-configurator
-const browser: string = process.env.BROWSER || "firefox";
+const browser: string = process.env.BROWSER || "chrome";
+const chrome = {
+    browserName: 'chrome',
+    acceptInsecureCerts: true
+};
+const firefox = {
+    browserName: 'firefox',
+    acceptInsecureCerts: true
+};
+const edge = {
+    browserName: 'MicrosoftEdge',
+    acceptInsecureCerts: true
+};
 switch (browser) {
     case "chrome":
-        config.capabilities = [{
-            browserName: 'chrome',
-            acceptInsecureCerts: true,
-            'goog:chromeOptions': { 
-                // https://developer.chrome.com/articles/new-headless/#new-headless-in-selenium-webdriver
-                // https://stackoverflow.com/questions/69173469/meaning-of-selenium-chromeoptions
-                // args: [
-                //     '--headless=new',
-                //     '--disable-gpu',
-                //     '--disable-dev-shm-usage'
-                // ],
-            }
-        }]
+        config.capabilities = [chrome]
         break;
     case "firefox":
-        config.capabilities = [{
-            browserName: 'firefox'
-        }]
+        config.capabilities = [firefox]
         break;
     case "edge":
-        config.capabilities = [{
-            browserName: 'MicrosoftEdge'
-        }]
+        config.capabilities = [edge]
         break;
     case "all":
-        config.capabilities = [{
-            browserName: 'chrome'
-        }, {
-            browserName: 'firefox'
-        }, {
-            browserName: 'MicrosoftEdge'
-        }]
+        config.capabilities = [chrome, firefox, edge]
         break;
 }
 exports.config = config
