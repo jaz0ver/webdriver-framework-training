@@ -32,7 +32,7 @@
     "wdio:docker:suite": "wdio run ./conf/docker.wdio.conf.ts env=qa browser=chrome --suite wdio_sample",
     "wdio:web": "wdio run ./conf/web.wdio.conf.ts",
     "wdio:web:spec": "wdio run ./conf/web.wdio.conf.ts env=qa --spec ./test/testcases/test.e2e.ts",
-    "wdio:web:suite": "wdio run ./conf/web.wdio.conf.ts env=qa browser=chrome --suite wdio_sample",
+    "wdio:web:suite": "wdio run ./conf/web.wdio.conf.ts env=qa browser=chrome --suite rcg_infor_login",
     "wdio:android": "wdio run ./conf/android.wdio.conf.ts",
     "wdio:android:suite": "wdio run ./conf/android.wdio.conf.ts env=qa browser=chrome --suite wdio_sample",
     "wdio:ios": "wdio run ./conf/ios.wdio.conf.ts",

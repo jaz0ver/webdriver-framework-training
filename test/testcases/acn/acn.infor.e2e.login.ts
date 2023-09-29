@@ -1,5 +1,5 @@
 import WebControl from '../../pageobjects/base/acn/browser'
-import LoginPage from '../../pageobjects/infor/login.page'
+import LoginPage from '../../pageobjects/acn/acn.infor.login.page'
 
 
 describe('Infor login', () => {

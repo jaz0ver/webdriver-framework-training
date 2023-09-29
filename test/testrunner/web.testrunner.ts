@@ -7,8 +7,11 @@ module.exports = {
         wdio_sample: [
             '../test/testcases/wdio.sample/test.e2e.login.ts'
         ],
-        infor_login: [
-            '../test/testcases/infor/infor.e2e.login.ts'
+        acn_infor_login: [
+            '../test/testcases/acn/acn.infor.e2e.login.ts'
+        ],
+        rcg_infor_login: [
+            '../test/testcases/rcg/rcg.infor.e2e.login.ts'
         ],
         e2e: [
                 '../test/testcases/test.e2e.ts'
