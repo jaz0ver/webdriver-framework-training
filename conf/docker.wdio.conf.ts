@@ -1,7 +1,7 @@
 import { config } from "./wdio.conf"
-import { getLogPathWithTime } from '../main/utilities/common.functions'
-const suites = require("../test/testrunner/android.testrunner").suites
-const specs = require("../test/testrunner/android.testrunner").specs
+import { getVariableInCMD } from "../main/utilities/common.functions";
+const suites = require("../test/testrunner/web.testrunner").suites
+const specs = require("../test/testrunner/web.testrunner").specs
 
 // ==================
 // Specify Test Files
@@ -25,22 +25,9 @@ config.suites = suites;
 // Services take over a specific job you don't want to take care of. They enhance
 // your test setup with almost no effort. Unlike plugins, they don't add new
 // commands. Instead, they hook themselves up into the test process.
-config.services = [
-    [
-        "appium",
-        {
-            args: {
-                relaxedSecurity: true,
-                address: "localhost",
-                // port: 4723,
-                // path: '/wd/hub'
-            },
-            logPath: `${getLogPathWithTime('appium')}`
-        }
-    ]
-];
-// default appium port
-config.port = 4723;
+config.services = [];
+config.hostname = 'localhost';
+config.port = 4444;
 // 
 // ============
 // Capabilities
@@ -57,17 +44,31 @@ config.port = 4723;
 // and 30 processes will get spawned. The property handles how many capabilities
 // from the same test should run tests.
 //
-config.maxInstances = 1;
+config.maxInstances = 2;
 //
 // If you have trouble getting all important capabilities together, check out the
 // Sauce Labs platform configurator - a great tool to configure your capabilities:
 // https://saucelabs.com/platform/platform-configurator
-config.capabilities = [{
-    "appium:platformName": "Android",
-    "appium:platformVersion": "10",
-    "appium:deviceName": "Pixel_3_Android_10",
-    "appium:automationName": "UiAutomator2",
-    "appium:browserName": "chrome",
-    "appium:noReset": true
-}];
+const chrome = {
+    browserName: 'chrome',
+    acceptInsecureCerts: true
+};
+const firefox = {
+    browserName: 'firefox',
+    acceptInsecureCerts: true
+};
+switch (getVariableInCMD('browser')) {
+    case "chrome":
+        config.capabilities = [chrome]
+        break;
+    case "firefox":
+        config.capabilities = [firefox]
+        break;
+    case "all":
+        config.capabilities = [chrome, firefox]
+        break;
+    default:
+        console.error(`Selected browser, ${browser} was not in the list.`);
+        process.exit(1);
+}
 exports.config = config

@@ -19,7 +19,8 @@
     "appium-chromedriver": "^5.6.11",
     "appium-uiautomator2-driver": "^2.29.10",
     "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "wdio-docker-service": "^3.2.1"
   },
   "scripts": {
     "wdio": "wdio run ./conf/wdio.conf.ts",
@@ -27,6 +28,8 @@
     "wdio:githubaction:dispatch": "wdio run ./conf/githubaction.wdio.conf.ts",
     "wdio:browserstack": "wdio run ./conf/browserstack.wdio.conf.ts",
     "wdio:browserstack:suite": "wdio run ./conf/browserstack.wdio.conf.ts env=qa --suite login",
+    "wdio:docker": "wdio run ./conf/docker.wdio.conf.ts",
+    "wdio:docker:suite": "wdio run ./conf/docker.wdio.conf.ts env=qa --suite login",
     "wdio:web": "wdio run ./conf/web.wdio.conf.ts",
     "wdio:web:spec": "wdio run ./conf/web.wdio.conf.ts env=qa --spec ./test/testcases/test.e2e.ts",
     "wdio:web:suite": "wdio run ./conf/web.wdio.conf.ts env=qa --suite login",
