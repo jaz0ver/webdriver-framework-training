@@ -4,8 +4,11 @@ module.exports = {
     // Or, run multiple suites at once:
     // npm run wdio:android --suite sample --suite sample2
     "suites": {
-        login: [
-            '../test/testcases/Login/test.e2e.login.ts'
+        wdio_sample: [
+            '../test/testcases/wdio.sample/test.e2e.login.ts'
+        ],
+        infor_login: [
+            '../test/testcases/infor/infor.e2e.login.ts'
         ],
         e2e: [
                 '../test/testcases/test.e2e.ts'
