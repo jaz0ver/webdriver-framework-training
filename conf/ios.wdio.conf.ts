@@ -33,11 +33,11 @@ config.services = [
                 relaxedSecurity: true,
                 address: "localhost",
                 // port: 4723,
-                // path: '/wd/hub',
+                // path: '/wd/hub'
             },
-            logPath: `${getLogPathWithTime('appium')}`,
-        },
-    ],
+            logPath: `${getLogPathWithTime('appium')}`
+        }
+    ]
 ];
 // default appium port
 config.port = 4723;
