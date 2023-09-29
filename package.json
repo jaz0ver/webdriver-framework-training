@@ -27,16 +27,16 @@
     "wdio:githubaction": "wdio run ./conf/githubaction.wdio.conf.ts",
     "wdio:githubaction:dispatch": "wdio run ./conf/githubaction.wdio.conf.ts",
     "wdio:browserstack": "wdio run ./conf/browserstack.wdio.conf.ts",
-    "wdio:browserstack:suite": "wdio run ./conf/browserstack.wdio.conf.ts env=qa --suite login",
+    "wdio:browserstack:suite": "wdio run ./conf/browserstack.wdio.conf.ts env=qa browser=chrome --suite wdio_sample",
     "wdio:docker": "wdio run ./conf/docker.wdio.conf.ts",
-    "wdio:docker:suite": "wdio run ./conf/docker.wdio.conf.ts env=qa --suite login",
+    "wdio:docker:suite": "wdio run ./conf/docker.wdio.conf.ts env=qa browser=chrome --suite wdio_sample",
     "wdio:web": "wdio run ./conf/web.wdio.conf.ts",
     "wdio:web:spec": "wdio run ./conf/web.wdio.conf.ts env=qa --spec ./test/testcases/test.e2e.ts",
-    "wdio:web:suite": "wdio run ./conf/web.wdio.conf.ts env=qa --suite login",
+    "wdio:web:suite": "wdio run ./conf/web.wdio.conf.ts env=qa browser=chrome --suite wdio_sample",
     "wdio:android": "wdio run ./conf/android.wdio.conf.ts",
-    "wdio:android:suite": "wdio run ./conf/android.wdio.conf.ts env=qa --suite login",
+    "wdio:android:suite": "wdio run ./conf/android.wdio.conf.ts env=qa browser=chrome --suite wdio_sample",
     "wdio:ios": "wdio run ./conf/ios.wdio.conf.ts",
-    "wdio:ios:suite": "wdio run ./conf/ios.wdio.conf.ts env=qa --suite login"
+    "wdio:ios:suite": "wdio run ./conf/ios.wdio.conf.ts env=qa browser=chrome --suite wdio_sample"
   },
   "dependencies": {
     "dotenv": "^16.3.1"

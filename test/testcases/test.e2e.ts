@@ -1,6 +1,6 @@
 import { expect } from '@wdio/globals'
-import LoginPage from '../pageobjects/login.page'
-import SecurePage from '../pageobjects/secure.page'
+import LoginPage from '../pageobjects/wdio.sample/login.page'
+import SecurePage from '../pageobjects/wdio.sample/secure.page'
 const allureReporter = require('@wdio/allure-reporter').default
 
 describe('My Login application', () => {
