@@ -2,7 +2,7 @@
 name: Web - Scheduled
 on:
   schedule:
-    - cron: '20,50 * * * 1-5' 
+    - cron: '59 23 * * *' 
   workflow_dispatch:
 
 jobs:
